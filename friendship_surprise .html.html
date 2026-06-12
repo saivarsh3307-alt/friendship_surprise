@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Best Friend 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blush: #f9c6ce;
+  --rose: #e8738a;
+  --mauve: #c9728a;
+  --lavender: #e8d5f5;
+  --lilac: #b59fd4;
+  --cream: #fff8f2;
+  --gold: #f7c59f;
+  --text-dark: #3d2b3d;
+  --text-mid: #7a5c7a;
+  --white: #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ─── FLOATING HEARTS ─────────────────── */
+#hearts-container {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.floating-heart {
+  position: absolute;
+  bottom: -60px;
+  animation: floatUp linear infinite;
+  font-size: 18px;
+  opacity: 0;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+  100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+}
+
+/* ─── MUSIC BUTTON ────────────────────── */
+#music-btn {
+  position: fixed; top: 18px; right: 18px;
+  z-index: 10000;
+  background: linear-gradient(135deg, var(--rose), var(--mauve));
+  border: none; border-radius: 50%;
+  width: 52px; height: 52px;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(200,80,100,.35);
+  transition: transform .2s, box-shadow .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+#music-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(200,80,100,.5); }
+
+/* ─── NAV ─────────────────────────────── */
+#nav {
+  position: fixed; top: 0; left: 0;
+  width: 100%; z-index: 9000;
+  background: rgba(255,248,242,.88);
+  backdrop-filter: blur(10px);
+  display: flex; gap: 0; justify-content: center;
+  padding: 0;
+  border-bottom: 1px solid rgba(233,115,138,.15);
+  transform: translateY(-100%);
+  transition: transform .4s ease;
+}
+#nav.visible { transform: translateY(0); }
+#nav a {
+  padding: 14px 16px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  text-decoration: none;
+  transition: color .2s;
+}
+#nav a:hover { color: var(--rose); }
+
+/* ─── LANDING / HERO ──────────────────── */
+#landing {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px 24px;
+  background: linear-gradient(160deg, #fce4ec 0%, #f3e5f5 40%, #e8f5e9 100%);
+  position: relative;
+  overflow: hidden;
+}
+#landing::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8738a' fill-opacity='0.05'%3E%3Cpath d='M30 30c0-11 9-20 20-20s20 9 20 20-9 20-20 20-20-9-20-20zm-30 0C0 19 9 10 20 10s20 9 20 20-9 20-20 20S0 41 0 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.landing-subtitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(14px, 3vw, 18px);
+  color: var(--mauve);
+  letter-spacing: .08em;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp .8s .3s forwards;
+}
+.landing-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 60px);
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp .8s .6s forwards;
+}
+.landing-title span { color: var(--rose); }
+.landing-desc {
+  font-size: clamp(15px, 2.5vw, 18px);
+  color: var(--text-mid);
+  max-width: 540px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp .8s .9s forwards;
+}
+
+/* ─── OPEN SURPRISE CARD ──────────────── */
+#welcome-card-section {
+  padding: 80px 24px;
+  display: flex; justify-content: center; align-items: center;
+  background: linear-gradient(180deg, #f3e5f5 0%, var(--cream) 100%);
+}
+.card-wrapper {
+  perspective: 1200px;
+  width: min(400px, 90vw);
+  height: 260px;
+}
+.card-3d {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .9s cubic-bezier(.4,0,.2,1);
+  cursor: pointer;
+}
+.card-3d.flipped { transform: rotateY(180deg); }
+.card-front, .card-back {
+  position: absolute; inset: 0;
+  border-radius: 20px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  backface-visibility: hidden;
+  padding: 32px;
+  text-align: center;
+}
+.card-front {
+  background: linear-gradient(135deg, var(--blush), var(--lavender));
+  box-shadow: 0 12px 40px rgba(200,80,100,.2);
+}
+.card-back {
+  background: linear-gradient(135deg, var(--rose), var(--lilac));
+  transform: rotateY(180deg);
+  box-shadow: 0 12px 40px rgba(180,60,100,.3);
+  color: white;
+}
+.card-front h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; color: var(--mauve);
+  margin-bottom: 10px;
+}
+.card-front p { color: var(--text-mid); font-size: 14px; margin-bottom: 24px; }
+.card-back h2 { font-family: 'Dancing Script', cursive; font-size: 28px; margin-bottom: 10px; }
+.card-back p { font-size: 14px; line-height: 1.7; opacity: .9; }
+
+/* ─── BUTTONS ─────────────────────────── */
+.btn-primary {
+  display: inline-block;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, var(--rose), var(--mauve));
+  color: white; border: none; border-radius: 50px;
+  font-size: 15px; font-weight: 700; letter-spacing: .05em;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(200,80,100,.35);
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,80,100,.45); }
+.btn-secondary {
+  display: inline-block;
+  padding: 12px 30px;
+  background: transparent;
+  color: var(--rose); border: 2px solid var(--rose); border-radius: 50px;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+}
+.btn-secondary:hover { background: var(--rose); color: white; }
+
+/* ─── SECTION WRAPPERS ────────────────── */
+.section {
+  padding: 80px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--rose);
+  margin-bottom: 10px; display: block;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 42px);
+  color: var(--text-dark);
+  margin-bottom: 14px;
+}
+.section-sub {
+  font-size: 16px; color: var(--text-mid);
+  line-height: 1.8; max-width: 560px;
+  margin-bottom: 50px;
+}
+.section-divider {
+  width: 100%; padding: 60px 0 0;
+  text-align: center;
+  border-top: 1px solid rgba(233,115,138,.15);
+}
+
+/* ─── QUOTE CAROUSEL ──────────────────── */
+#quotes-section {
+  background: linear-gradient(160deg, #fce4ec, #e8d5f5);
+  padding: 80px 24px;
+}
+.quote-stage {
+  max-width: 700px; margin: 0 auto;
+  text-align: center; position: relative; min-height: 200px;
+}
+.quote-card {
+  display: none;
+  animation: fadeInQuote .8s ease;
+}
+.quote-card.active { display: block; }
+@keyframes fadeInQuote {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.quote-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 3vw, 28px);
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.quote-text::before { content: '\201C'; color: var(--rose); font-size: 1.4em; }
+.quote-text::after  { content: '\201D'; color: var(--rose); font-size: 1.4em; }
+.quote-num { font-size: 12px; color: var(--text-mid); letter-spacing: .1em; }
+.quote-controls { margin-top: 32px; display: flex; gap: 14px; justify-content: center; }
+.auto-badge {
+  display: inline-block; margin-top: 14px;
+  font-size: 11px; color: var(--mauve);
+  background: rgba(181,159,212,.15);
+  padding: 4px 14px; border-radius: 20px;
+}
+
+/* ─── TIMELINE ────────────────────────── */
+#timeline-section { background: var(--cream); }
+.timeline {
+  position: relative; max-width: 700px; margin: 0 auto;
+}
+.timeline::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(var(--blush), var(--lilac));
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: flex; align-items: flex-start;
+  margin-bottom: 50px;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .6s, transform .6s;
+}
+.tl-item.visible { opacity: 1; transform: translateY(0); }
+.tl-item:nth-child(odd)  { flex-direction: row-reverse; }
+.tl-item:nth-child(even) { flex-direction: row; }
+.tl-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--rose);
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px var(--blush);
+  flex-shrink: 0; position: relative; z-index: 1;
+  margin: 0 -7px;
+}
+.tl-content {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 20px rgba(180,60,100,.1);
+  max-width: calc(50% - 30px);
+  flex-grow: 0;
+}
+.tl-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; color: var(--rose); margin-bottom: 6px;
+}
+.tl-content .tl-year {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  color: var(--lilac); text-transform: uppercase; margin-bottom: 8px;
+}
+.tl-content p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+.tl-spacer { flex: 1; }
+
+/* ─── IMAGE GALLERY ───────────────────── */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px; margin-top: 40px;
+}
+.gallery-item {
+  border-radius: 14px; overflow: hidden;
+  cursor: pointer; aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--blush), var(--lavender));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+  transition: transform .3s, box-shadow .3s;
+  position: relative;
+}
+.gallery-item:hover { transform: scale(1.04); box-shadow: 0 10px 30px rgba(200,80,100,.25); }
+.gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(61,43,61,.7));
+  color: white; font-size: 12px; font-weight: 700;
+  padding: 28px 12px 12px;
+  opacity: 0; transition: opacity .3s;
+}
+.gallery-item:hover .gallery-caption { opacity: 1; }
+
+/* ─── LIGHTBOX ────────────────────────── */
+#lightbox {
+  position: fixed; inset: 0; z-index: 99000;
+  background: rgba(0,0,0,.85);
+  display: none; align-items: center; justify-content: center;
+  animation: fadeIn .3s ease;
+}
+#lightbox.open { display: flex; }
+#lightbox-inner {
+  background: white; border-radius: 20px;
+  padding: 40px; text-align: center;
+  max-width: 480px; width: 90%;
+  position: relative;
+}
+#lightbox-emoji { font-size: 80px; margin-bottom: 16px; display: block; }
+#lightbox-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--rose); margin-bottom: 10px; }
+#lightbox-text { color: var(--text-mid); line-height: 1.8; font-size: 15px; }
+#lightbox-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none; font-size: 22px;
+  cursor: pointer; color: var(--mauve);
+}
+
+/* ─── FLIP CARDS ──────────────────────── */
+#reasons-section { background: linear-gradient(180deg, #e8f5e9 0%, #e8d5f5 100%); padding: 80px 24px; }
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px; margin-top: 40px;
+}
+.flip-card { perspective: 800px; height: 160px; cursor: pointer; }
+.flip-inner {
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.4,0,.2,1);
+}
+.flip-card:hover .flip-inner, .flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-front, .flip-back {
+  position: absolute; inset: 0;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  backface-visibility: hidden;
+  padding: 14px;
+  text-align: center;
+}
+.flip-front {
+  background: linear-gradient(135deg, var(--blush), var(--lavender));
+  flex-direction: column; gap: 8px;
+}
+.flip-front .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700; color: var(--rose);
+}
+.flip-front .label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-mid);
+}
+.flip-back {
+  background: linear-gradient(135deg, var(--rose), var(--mauve));
+  transform: rotateY(180deg);
+  color: white; font-size: 13px; line-height: 1.6;
+}
+
+/* ─── QUIZ ────────────────────────────── */
+#quiz-section { background: var(--cream); }
+.quiz-box {
+  max-width: 600px; margin: 0 auto;
+  background: white; border-radius: 24px;
+  padding: 40px; box-shadow: 0 8px 40px rgba(180,60,100,.12);
+}
+.quiz-q {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; color: var(--text-dark);
+  margin-bottom: 24px; line-height: 1.5;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 12px; }
+.quiz-opt {
+  padding: 14px 22px;
+  border: 2px solid rgba(233,115,138,.25);
+  border-radius: 12px; background: #fff8f2;
+  cursor: pointer; font-size: 15px;
+  color: var(--text-dark);
+  transition: all .2s; text-align: left;
+}
+.quiz-opt:hover { border-color: var(--rose); background: var(--blush); transform: translateX(4px); }
+.quiz-opt.correct { border-color: #66bb6a; background: #e8f5e9; color: #2e7d32; }
+.quiz-opt.wrong   { border-color: #ef9a9a; background: #ffebee; color: #c62828; }
+.quiz-progress {
+  font-size: 12px; color: var(--text-mid);
+  margin-bottom: 6px; font-weight: 700; letter-spacing: .06em;
+}
+.quiz-bar-wrap { height: 6px; background: var(--lavender); border-radius: 10px; margin-bottom: 28px; overflow: hidden; }
+.quiz-bar { height: 100%; background: linear-gradient(90deg, var(--rose), var(--lilac)); border-radius: 10px; transition: width .4s; }
+.quiz-result { text-align: center; display: none; }
+.quiz-result h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--rose); margin-bottom: 14px; }
+.quiz-result p  { color: var(--text-mid); font-size: 16px; line-height: 1.8; }
+
+/* ─── ENVELOPES ───────────────────────── */
+#envelopes-section { background: linear-gradient(160deg, #fce4ec, #f3e5f5); padding: 80px 24px; }
+.envelopes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px; margin-top: 40px;
+}
+.envelope {
+  background: white; border-radius: 16px;
+  padding: 28px 20px; text-align: center;
+  box-shadow: 0 4px 20px rgba(180,60,100,.1);
+  cursor: pointer; transition: transform .3s, box-shadow .3s;
+  position: relative; overflow: hidden;
+}
+.envelope:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(180,60,100,.2); }
+.envelope .env-icon { font-size: 48px; display: block; margin-bottom: 12px; transition: transform .3s; }
+.envelope:hover .env-icon { transform: scale(1.15) rotate(-5deg); }
+.envelope h3 { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--mauve); }
+.envelope.opened .env-icon::after { content: ' ✨'; }
+.env-modal {
+  position: fixed; inset: 0; z-index: 99000;
+  background: rgba(0,0,0,.7);
+  display: none; align-items: center; justify-content: center;
+  animation: fadeIn .3s;
+}
+.env-modal.open { display: flex; }
+.env-modal-inner {
+  background: linear-gradient(160deg, #fff8f2, #f3e5f5);
+  border-radius: 24px; padding: 44px;
+  max-width: 520px; width: 90%;
+  position: relative; max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+.env-modal-inner h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 30px; color: var(--rose); margin-bottom: 20px;
+}
+.env-modal-inner p {
+  font-size: 15px; color: var(--text-mid); line-height: 1.9;
+  margin-bottom: 14px;
+}
+.env-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none; font-size: 22px;
+  cursor: pointer; color: var(--mauve);
+}
+
+/* ─── JAR OF HAPPINESS ────────────────── */
+#jar-section { background: var(--cream); }
+.jar-stage {
+  max-width: 560px; margin: 0 auto; text-align: center;
+}
+.jar-visual {
+  font-size: 100px; margin: 20px 0;
+  display: inline-block;
+  animation: jarWobble 3s ease-in-out infinite;
+}
+@keyframes jarWobble {
+  0%,100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
+}
+.jar-message {
+  min-height: 80px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(17px, 3vw, 22px);
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.7;
+  padding: 24px;
+  background: linear-gradient(135deg, var(--blush), var(--lavender));
+  border-radius: 16px;
+  margin: 24px 0;
+  transition: opacity .4s;
+}
+
+/* ─── GIFT BOX ────────────────────────── */
+#gift-section { background: linear-gradient(160deg, #e8f5e9, #e8d5f5); padding: 80px 24px; }
+.gift-stage { max-width: 540px; margin: 0 auto; text-align: center; }
+.gift-box-btn {
+  font-size: 90px;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform .3s;
+  background: none; border: none;
+  line-height: 1;
+}
+.gift-box-btn:hover { transform: scale(1.08) rotate(-4deg); }
+.gift-box-btn.shaking { animation: shake .4s; }
+@keyframes shake {
+  0%,100% { transform: rotate(0); }
+  20%      { transform: rotate(-8deg) scale(1.05); }
+  60%      { transform: rotate(8deg) scale(1.1); }
+  80%      { transform: rotate(-4deg); }
+}
+.gift-reveal {
+  background: white; border-radius: 20px;
+  padding: 28px; box-shadow: 0 8px 30px rgba(180,60,100,.15);
+  margin-top: 24px;
+  display: none;
+}
+.gift-reveal.show {
+  display: block;
+  animation: bounceIn .5s ease;
+}
+@keyframes bounceIn {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.gift-reveal h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--rose); margin-bottom: 12px; }
+.gift-reveal p  { color: var(--text-mid); font-size: 15px; line-height: 1.8; }
+
+/* ─── COUNTDOWN ───────────────────────── */
+#countdown-section { background: var(--cream); }
+.count-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px; margin-top: 40px;
+}
+.count-card {
+  background: linear-gradient(135deg, var(--rose), var(--mauve));
+  border-radius: 20px; padding: 32px 20px;
+  text-align: center; color: white;
+  box-shadow: 0 6px 24px rgba(200,80,100,.3);
+}
+.count-card .count-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; font-weight: 700;
+  display: block; line-height: 1;
+}
+.count-card .count-label {
+  font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; opacity: .85;
+  margin-top: 8px; display: block;
+}
+
+/* ─── LETTER ──────────────────────────── */
+#letter-section {
+  background: linear-gradient(160deg, #fce4ec, #e8d5f5);
+  padding: 80px 24px;
+}
+.letter-paper {
+  max-width: 680px; margin: 0 auto;
+  background: #fffdf9;
+  border-radius: 4px;
+  padding: clamp(32px, 6vw, 64px);
+  box-shadow: 0 8px 40px rgba(0,0,0,.1), inset 0 0 0 1px rgba(233,115,138,.1);
+  position: relative;
+}
+.letter-paper::before {
+  content: '';
+  position: absolute; top: 0; left: 60px;
+  width: 1px; height: 100%;
+  background: rgba(233,115,138,.2);
+}
+.letter-date {
+  font-family: 'Dancing Script', cursive;
+  font-size: 18px; color: var(--lilac);
+  margin-bottom: 28px; display: block;
+}
+.letter-body {
+  font-size: 16px; line-height: 2;
+  color: var(--text-dark);
+  font-family: 'Lato', sans-serif;
+}
+.letter-body p { margin-bottom: 20px; }
+.letter-sign {
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px; color: var(--rose);
+  margin-top: 32px; display: block;
+}
+
+/* ─── FINAL ───────────────────────────── */
+#final-section {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  background: linear-gradient(160deg, #f3e5f5, #fce4ec, #e8f5e9);
+  padding: 60px 24px;
+  position: relative; overflow: hidden;
+}
+#final-section h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4.5vw, 48px);
+  color: var(--text-dark);
+  max-width: 720px; line-height: 1.4;
+  margin-bottom: 28px;
+}
+#final-section h1 span { color: var(--rose); }
+#final-section p {
+  font-size: 18px; color: var(--text-mid);
+  line-height: 1.8; max-width: 500px;
+  margin-bottom: 40px;
+}
+#confetti-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 99001;
+  display: none;
+}
+
+/* ─── UTILITY ─────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--rose);
+  animation: typing 3.5s steps(40) 1s 1 normal both,
+             blink .8s step-end infinite;
+}
+@keyframes typing { from { width: 0; } to { width: 100%; } }
+@keyframes blink  { 50% { border-color: transparent; } }
+
+/* ─── EASTER EGG ──────────────────────── */
+#easter-egg {
+  position: fixed; bottom: 20px; left: 20px; z-index: 9999;
+  font-size: 28px; cursor: pointer;
+  animation: spin 8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#egg-toast {
+  position: fixed; bottom: 70px; left: 20px; z-index: 9999;
+  background: var(--rose); color: white;
+  padding: 12px 20px; border-radius: 12px;
+  font-size: 14px; max-width: 220px; line-height: 1.6;
+  display: none; animation: fadeUp .4s ease;
+  box-shadow: 0 4px 20px rgba(200,80,100,.4);
+}
+
+/* ─── SCROLLBAR ───────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--blush); border-radius: 4px; }
+
+/* ─── RESPONSIVE ──────────────────────── */
+@media(max-width:640px){
+  .timeline::before { left: 16px; }
+  .tl-item, .tl-item:nth-child(odd) { flex-direction: column; align-items: flex-start; padding-left: 40px; }
+  .tl-dot { margin: 0; position: absolute; left: 8px; }
+  .tl-item { position: relative; }
+  .tl-content { max-width: 100%; }
+  .tl-spacer { display: none; }
+  #nav a { padding: 10px 8px; font-size: 10px; }
+  .letter-paper::before { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING HEARTS -->
+<div id="hearts-container"></div>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- MUSIC TOGGLE -->
+<button id="music-btn" title="Toggle Music" onclick="toggleMusic()">🎵</button>
+
+<!-- EASTER EGG -->
+<div id="easter-egg" onclick="showEgg()" title="Psst... click me!">🌟</div>
+<div id="egg-toast"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <a href="#welcome-card-section">Surprise</a>
+  <a href="#quotes-section">Quotes</a>
+  <a href="#timeline-section">Memories</a>
+  <a href="#reasons-section">You're Special</a>
+  <a href="#quiz-section">Quiz</a>
+  <a href="#envelopes-section">Letters</a>
+  <a href="#jar-section">Jar</a>
+  <a href="#gift-section">Gift</a>
+  <a href="#countdown-section">Days</a>
+  <a href="#letter-section">Letter</a>
+  <a href="#final-section">Forever</a>
+</nav>
+
+<!-- ───── LANDING ───── -->
+<section id="landing">
+  <div class="landing-subtitle">a little corner of the internet, just for you</div>
+  <h1 class="landing-title">This little corner of the internet<br>was made just for <span>you</span> ❤️</h1>
+  <p class="landing-desc">Scroll through a journey of love, laughter, and everything in between — because you deserve to feel how truly extraordinary you are.</p>
+  <a href="#welcome-card-section" class="btn-primary">Begin the Journey ✨</a>
+</section>
+
+<!-- ───── OPEN SURPRISE CARD ───── -->
+<section id="welcome-card-section" style="padding:80px 24px; background:linear-gradient(180deg,#f3e5f5,var(--cream));">
+  <div style="text-align:center; max-width:600px; margin:0 auto 40px;">
+    <span class="section-label">Welcome Surprise</span>
+    <h2 class="section-title">There's something waiting for you…</h2>
+    <p class="section-sub">Tap the card — your first surprise is hidden inside.</p>
+  </div>
+  <div class="card-wrapper" style="margin:0 auto;" onclick="flipCard(this)">
+    <div class="card-3d">
+      <div class="card-front">
+        <div style="font-size:48px; margin-bottom:12px;">💌</div>
+        <h2>Open Your Surprise</h2>
+        <p>A special message is waiting just for you.</p>
+        <span class="btn-secondary" style="font-size:13px;">Click to Open</span>
+      </div>
+      <div class="card-back">
+        <div style="font-size:36px; margin-bottom:12px;">🌸</div>
+        <h2>Hello, my person!</h2>
+        <p>You are the reason I believe good people exist. This whole journey was made to celebrate you — every laugh, every late night, every small beautiful moment we've shared. You deserve all of this and so much more.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── QUOTES ───── -->
+<section id="quotes-section">
+  <div style="max-width:800px; margin:0 auto; text-align:center;">
+    <span class="section-label">Why You're Special</span>
+    <h2 class="section-title" style="color:var(--text-dark);">50 Truths About Friendship</h2>
+    <p class="section-sub" style="margin:0 auto 40px;">"These words feel like they were written for us."</p>
+    <div class="quote-stage" id="quote-stage"></div>
+    <div class="quote-controls">
+      <button class="btn-secondary" onclick="prevQuote()">← Prev</button>
+      <button class="btn-primary" onclick="nextQuote()">Next →</button>
+    </div>
+    <span class="auto-badge" id="auto-badge">Auto-advancing every 6s</span>
+  </div>
+</section>
+
+<!-- ───── TIMELINE + GALLERY ───── -->
+<section id="timeline-section" style="padding:80px 24px;">
+  <div class="section" style="padding:0;">
+    <span class="section-label">Memory Lane</span>
+    <h2 class="section-title">Our Story, Written in Time</h2>
+    <p class="section-sub">Every chapter more beautiful than the last.</p>
+  </div>
+  <div class="timeline" id="timeline"></div>
+
+  <div class="section" style="padding:60px 0 0; max-width:1100px; margin:0 auto;">
+    <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:var(--rose); margin-bottom:8px;">Memory Gallery</h3>
+    <p style="color:var(--text-mid); margin-bottom:0;">Click any moment to relive it.</p>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<!-- ───── LIGHTBOX ───── -->
+<div id="lightbox">
+  <div id="lightbox-inner">
+    <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+    <span id="lightbox-emoji"></span>
+    <div id="lightbox-title"></div>
+    <div id="lightbox-text"></div>
+  </div>
+</div>
+
+<!-- ───── REASONS ───── -->
+<section id="reasons-section">
+  <div style="max-width:1100px; margin:0 auto;">
+    <span class="section-label">Reasons I Appreciate You</span>
+    <h2 class="section-title">100 Reasons You're Wonderful</h2>
+    <p class="section-sub">Hover each card to reveal a reason from my heart.</p>
+    <div class="flip-grid" id="flip-grid"></div>
+  </div>
+</section>
+
+<!-- ───── QUIZ ───── -->
+<section id="quiz-section" style="padding:80px 24px;">
+  <div class="section" style="padding:0; margin-bottom:40px;">
+    <span class="section-label">Friendship Quiz</span>
+    <h2 class="section-title">How Well Do We Know Each Other?</h2>
+    <p class="section-sub">A little quiz to celebrate just how perfectly matched we are as best friends.</p>
+  </div>
+  <div class="quiz-box">
+    <div id="quiz-active">
+      <p class="quiz-progress" id="quiz-progress">Question 1 of 10</p>
+      <div class="quiz-bar-wrap"><div class="quiz-bar" id="quiz-bar" style="width:10%"></div></div>
+      <p class="quiz-q" id="quiz-q"></p>
+      <div class="quiz-options" id="quiz-opts"></div>
+    </div>
+    <div class="quiz-result" id="quiz-result">
+      <div style="font-size:60px; margin-bottom:14px;">🎉</div>
+      <h2>You know us perfectly!</h2>
+      <p id="quiz-score-text"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ───── ENVELOPES ───── -->
+<section id="envelopes-section">
+  <div style="max-width:1100px; margin:0 auto;">
+    <span class="section-label">Secret Messages</span>
+    <h2 class="section-title">Sealed with Love</h2>
+    <p class="section-sub">Each envelope holds words from my heart — click to unseal them.</p>
+    <div class="envelopes-grid" id="envelopes-grid"></div>
+  </div>
+</section>
+<div id="env-modal" class="env-modal">
+  <div class="env-modal-inner">
+    <button class="env-close" onclick="closeEnv()">✕</button>
+    <h2 id="env-title"></h2>
+    <div id="env-body"></div>
+  </div>
+</div>
+
+<!-- ───── JAR OF HAPPINESS ───── -->
+<section id="jar-section" style="padding:80px 24px;">
+  <div class="section" style="padding:0; margin-bottom:40px; text-align:center;">
+    <span class="section-label">Jar of Happiness</span>
+    <h2 class="section-title">Reach Into the Jar</h2>
+    <p class="section-sub" style="margin:0 auto 0;">Every shake reveals a message made just for you.</p>
+  </div>
+  <div class="jar-stage">
+    <div class="jar-visual">🫙</div>
+    <div class="jar-message" id="jar-msg">Press the button to shake the jar and receive your message...</div>
+    <button class="btn-primary" onclick="shakeJar()" style="margin-top:8px;">🤍 Shake the Jar</button>
+  </div>
+</section>
+
+<!-- ───── GIFT BOX ───── -->
+<section id="gift-section">
+  <div style="max-width:600px; margin:0 auto; text-align:center;">
+    <span class="section-label">Virtual Gift Box</span>
+    <h2 class="section-title">A Gift from the Heart</h2>
+    <p class="section-sub" style="margin:0 auto 40px;">Something magical is hidden inside. Go on, open it.</p>
+    <div class="gift-stage">
+      <button class="gift-box-btn" id="gift-btn" onclick="openGift()">🎁</button>
+      <div class="gift-reveal" id="gift-reveal">
+        <div style="font-size:40px; margin-bottom:12px;" id="gift-icon"></div>
+        <h3 id="gift-title"></h3>
+        <p id="gift-msg"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── COUNTDOWN ───── -->
+<section id="countdown-section" style="padding:80px 24px;">
+  <div class="section" style="padding:0; margin-bottom:40px;">
+    <span class="section-label">Countdown of Memories</span>
+    <h2 class="section-title">Every Single Day Counts</h2>
+    <p class="section-sub">Since the moment we met, time has been one long beautiful adventure.</p>
+  </div>
+  <div class="count-grid" id="count-grid">
+    <div class="count-card"><span class="count-num" id="cnt-days">—</span><span class="count-label">Days Together</span></div>
+    <div class="count-card"><span class="count-num" id="cnt-months">—</span><span class="count-label">Months of Memories</span></div>
+    <div class="count-card"><span class="count-num" id="cnt-years">—</span><span class="count-label">Years of Friendship</span></div>
+    <div class="count-card"><span class="count-num" id="cnt-laughs">∞</span><span class="count-label">Laughs Shared</span></div>
+  </div>
+  <p style="text-align:center; margin-top:30px; color:var(--text-mid); font-style:italic;">
+    (Counting since the day our friendship began — adjust the date in the code to match yours 💕)
+  </p>
+</section>
+
+<!-- ───── LETTER ───── -->
+<section id="letter-section">
+  <div style="max-width:800px; margin:0 auto; text-align:center; margin-bottom:50px;">
+    <span class="section-label">Emotional Letter</span>
+    <h2 class="section-title">A Letter I've Always Wanted to Write</h2>
+    <p class="section-sub" style="margin:0 auto;">Words I've never found the perfect moment to say — until now.</p>
+  </div>
+  <div class="letter-paper">
+    <span class="letter-date" id="letter-date"></span>
+    <div class="letter-body">
+      <p>My dearest friend,</p>
+      <p>I've started this letter a dozen times. I never quite found the words that felt big enough — but I think that's the point. What we have doesn't fit neatly into language. It lives in the small things: the way you always seem to know when I need to laugh versus when I need to cry, the messages you send at exactly the right moment, the way you make me feel like myself, fully and without apology.</p>
+      <p>Do you know how rare that is? To have someone who knows your worst days and your most embarrassing moments and chooses to stay anyway — not out of obligation, but out of genuine love? You are that person for me. You've been that person since the very beginning, even when we were both still figuring out who we were.</p>
+      <p>I think about all the moments we've shared — the long nights, the inside jokes that would make no sense to anyone else, the adventures that almost went sideways but somehow became our best stories. Each one is a thread in something I wouldn't trade for anything. You are woven into my happiest memories, and that is not a small thing.</p>
+      <p>I want you to know that on your hardest days, I see you fighting. I see how much strength it takes to keep showing up — for others, for yourself, for life — even when it's heavy. And I am so proud of you. Not just for the big victories, but for every ordinary morning you got through when it felt impossible.</p>
+      <p>Thank you for being honest with me even when I didn't want to hear it. Thank you for celebrating me without jealousy and for lifting me up without conditions. Thank you for the kind of friendship that doesn't require constant proof — the kind that just quietly, steadily exists, and holds.</p>
+      <p>I hope that wherever life takes us — different cities, different chapters, different versions of ourselves — you always carry this with you: you are deeply loved. Not for what you do or what you achieve, but simply for who you are. That is enough. <em>You</em> are enough.</p>
+      <p>This little website is the smallest gesture I could make — a digital love letter for someone who deserves the world. But please know, the real gift isn't on any screen. It's the years behind us and all the ones still ahead.</p>
+      <p>I love you, endlessly and without conditions.</p>
+      <span class="letter-sign">Always yours 💕</span>
+    </div>
+  </div>
+</section>
+
+<!-- ───── FINAL ───── -->
+<section id="final-section">
+  <div style="font-size:70px; margin-bottom:24px; animation:floatUpDown 3s ease-in-out infinite;">💖</div>
+  <h1>No matter where life takes us, you'll always be one of the most important people in my life <span>❤️</span></h1>
+  <p>Thank you for being exactly who you are. This was made with every ounce of love I have for you.</p>
+  <button class="btn-primary" onclick="launchConfetti(); launchFireworks()">🎆 Celebrate! 🎆</button>
+  <p style="margin-top:32px; font-family:'Dancing Script',cursive; font-size:22px; color:var(--mauve);">
+    "Friendship is the only cement that will ever hold the world together."
+  </p>
+</section>
+
+<style>
+@keyframes floatUpDown {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-20px); }
+}
+</style>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════════════
+
+const FRIENDSHIP_START = new Date('2015-06-12'); // 10 years of friendship!
+
+const QUOTES = [
+  "A real friend is one who walks in when the rest of the world walks out.",
+  "Friendship is born at the moment one person says to another: 'What! You too? I thought I was the only one.'",
+  "True friendship comes when the silence between two people is comfortable.",
+  "A friend is someone who knows all about you and still loves you.",
+  "Good friends help you to find important things when you have lost them — your smile, your hope, and your courage.",
+  "A friend is one of the nicest things you can have and one of the best things you can be.",
+  "In the cookie of life, friends are the chocolate chips.",
+  "Friendship is not about whom you have known the longest. It is about who came and never left your side.",
+  "A true friend is someone who thinks that you are a good egg even though they know that you are slightly cracked.",
+  "Friendship is the only flower that blooms in all seasons.",
+  "Side by side or miles apart, we are friends connected by the heart.",
+  "A good friend knows all your best stories. A best friend has lived them with you.",
+  "Friends make the good times better and the hard times easier.",
+  "Rare as is true love, true friendship is rarer.",
+  "A friend is someone who gives you total freedom to be yourself.",
+  "Friends are people who know you really well and like you anyway.",
+  "There's nothing like a really loyal, dependable, good friend.",
+  "Friendship is a sheltering tree.",
+  "A friend is a gift you give yourself.",
+  "Lots of people want to ride with you in the limo, but what you want is someone who will take the bus with you when the limo breaks down.",
+  "The most beautiful discovery true friends make is that they can grow separately without growing apart.",
+  "A friend is one who overlooks your broken fence and admires the flowers in your garden.",
+  "Friends are the family we choose for ourselves.",
+  "A strong friendship doesn't need daily conversation or being together. As long as the relationship lives in the heart, true friends will never part.",
+  "No friendship is an accident.",
+  "The language of friendship is not words but meanings.",
+  "Friendship is not a big thing — it's a million little things.",
+  "A friend is someone who makes it easy to believe in yourself.",
+  "We'll be the old ladies causing trouble in the nursing home.",
+  "Truly great friends are hard to find, difficult to leave, and impossible to forget.",
+  "Good friends are like stars — you don't always see them, but you know they're always there.",
+  "Friend: a word so small yet so full of meaning.",
+  "One of the most beautiful gifts in the world is the gift of encouragement. When someone encourages you, they believe in you and help you believe in yourself.",
+  "A friend is what the heart needs all the time.",
+  "The only way to have a friend is to be one.",
+  "Friends are medicine for a wounded heart and vitamins for a hopeful soul.",
+  "Friendship is the comfort of knowing that even when you feel alone, you aren't.",
+  "A best friend is like a four-leaf clover: hard to find and lucky to have.",
+  "Nothing makes the earth seem so spacious as to have friends at a distance.",
+  "Two people can travel to the end of the world together without ever losing themselves.",
+  "A friend is someone who understands your past, believes in your future, and accepts you just the way you are.",
+  "Friendship is when people know all about you but like you anyway.",
+  "The antidote for fifty enemies is one friend.",
+  "One loyal friend is worth ten thousand relatives.",
+  "A single rose can be my garden… a single friend, my world.",
+  "Life is better with true friends.",
+  "We are not going anywhere — this friendship is forever.",
+  "You are the friend I didn't know I was looking for.",
+  "Best friends make the world smaller and the joy bigger.",
+  "To the world you may be one person; but to one person you may be the world."
+];
+
+const TIMELINE_EVENTS = [
+  { year: "The Beginning", title: "The Day We Met", text: "Neither of us knew that this seemingly ordinary moment would become the start of the greatest chapter.", emoji: "✨" },
+  { year: "Early Days", title: "First Real Conversation", text: "We talked for hours and forgot completely about the time. That was when I knew you were different.", emoji: "☕" },
+  { year: "Growing Closer", title: "Our First Inside Joke", text: "The kind of joke that makes absolutely no sense to anyone else — but makes us cry laughing every single time.", emoji: "😂" },
+  { year: "A Tough Chapter", title: "When Life Got Hard", text: "You showed up without being asked. You sat with me in the hard parts. That changed everything for me.", emoji: "🤝" },
+  { year: "A Celebration", title: "Our Biggest Win Together", text: "We danced and laughed until we were breathless. Every good thing felt doubled because you were there.", emoji: "🎉" },
+  { year: "The Road Trip", title: "An Adventure We'll Never Forget", text: "Getting a little lost was part of the plan all along — and it became one of our best stories.", emoji: "🚗" },
+  { year: "Quiet Moments", title: "Doing Nothing Together", text: "Proof that the best company makes silence feel full. No words needed, no explanations required.", emoji: "🌙" },
+  { year: "Right Now", title: "Here, Today", text: "Still here. Still us. Still laughing, still growing, still choosing each other every single day.", emoji: "💕" }
+];
+
+const GALLERY_ITEMS = [
+  { emoji: "🌅", title: "Golden Hour", text: "The sky looked like it was painted just for us. Some evenings are impossible to forget." },
+  { emoji: "🎂", title: "Celebrations", text: "Every birthday, every milestone — you're the one I want beside me." },
+  { emoji: "🎵", title: "Our Songs", text: "A playlist that takes us right back. Some songs belong to specific friendships." },
+  { emoji: "🌿", title: "The Walk", text: "That long walk where we solved all the world's problems and found none of the answers." },
+  { emoji: "📚", title: "Late Nights", text: "Burning midnight oil together, making the hard things feel lighter." },
+  { emoji: "🍕", title: "Food & Feelings", text: "Every deep conversation happens over food. Always." },
+  { emoji: "🌸", title: "Spring Together", text: "Walking through bloom like life was soft and slow and ours." },
+  { emoji: "💌", title: "The Note You Sent", text: "It arrived at exactly the right moment. I've never forgotten it." },
+  { emoji: "☕", title: "Morning Coffee", text: "The best mornings start with your messages and a hot cup." },
+  { emoji: "🎭", title: "Being Ridiculous", text: "The moments I laugh until my face hurts — you're always at the center of them." },
+  { emoji: "🌊", title: "By the Water", text: "Something about water makes every conversation go deeper." },
+  { emoji: "🌟", title: "Stargazing Night", text: "We talked about the universe and somehow ended up talking about life. Same thing, probably." }
+];
+
+const REASONS = [
+  "your laugh is contagious","you listen without judgment","you always know what to say","you're unapologetically yourself",
+  "you make hard things easier","you celebrate my wins like your own","you're honest, even when it's hard","you show up",
+  "you remember the little things","you never make me feel alone","your kindness is effortless","you make ordinary days special",
+  "you believe in me even when I don't","you give the best advice","you're hilarious without trying","your presence is calming",
+  "you care deeply","you're fiercely loyal","you love people well","you see the good in everyone",
+  "you stand up for what's right","you're brave in the quietest way","you never stop growing","you inspire me",
+  "you hold space for all my feelings","you're patient and gentle","you check in even when busy","your heart is enormous",
+  "you find joy in small things","you encourage without pushing","you're my safe person","you make me feel seen",
+  "you're curious about the world","you're creative and expressive","you understand my silences","you hold my secrets",
+  "you make every trip an adventure","you're generous with your time","you're generous with your love","you don't judge",
+  "you're thoughtful in everything you do","you've shaped who I am","you make me want to be better","you're endlessly kind",
+  "you're exactly who you are — no performance","you make chaos feel manageable","you celebrate small victories",
+  "you're steady when I'm not","you make me feel less alone in the world","you text back","you never make me feel like too much",
+  "you're warm in a way people don't forget","you face your fears anyway","you're deeply empathetic","you ask good questions",
+  "you listen to understand, not to reply","you're brilliant and you don't even know it","you're silly and serious in equal measure",
+  "you've seen me at my worst and stayed","you tell me the truth lovingly","you're a safe harbor in every storm",
+  "you cheer louder than anyone","you don't compete — you collaborate","you say sorry when you need to","you forgive",
+  "you grow and you invite others to grow too","you make people feel welcome","you notice when someone's struggling",
+  "you show up even when it's inconvenient","you make time for what matters","you're not afraid of depth",
+  "you make me feel important","you remember what other people forget","you love with intention","you never stop learning",
+  "you carry your heart on your sleeve","you're more resilient than you realize","you ask for help gracefully","you give help gracefully",
+  "you make the world brighter just by being in it","you're everything I hoped my best friend would be",
+  "you make every memory worth keeping","you're my favorite person to share good news with","you're my first call in a crisis",
+  "you turn ordinary moments into our best stories","you've never made me feel invisible","you're my mirror and my opposite",
+  "you make me laugh at myself","you remind me life is beautiful","you're home to me no matter where you are",
+  "you've given me more than you know","you're the reason I believe in people","you loved me before I loved myself",
+  "you make existing feel like a gift","you are irreplaceable","you are, simply, my person"
+];
+
+const QUIZ_DATA = [
+  { q: "What's the thing that makes our friendship totally unique?", opts: ["We finish each other's sentences","We can be silent and it's comfortable","We laugh at things nobody else understands","All of the above, honestly"], ans: 3 },
+  { q: "If I was having a terrible day, what's the first thing you'd do?", opts: ["Send a meme with no context","Show up with food","Call immediately","All three, in that order"], ans: 3 },
+  { q: "What kind of friend am I to you?", opts: ["The chaotic one","The wise one","The one who keeps it real","My favorite one"], ans: 3 },
+  { q: "What's our go-to comfort activity?", opts: ["Long drives and deep talks","Staying in and doing nothing together","Laughing about something only we'd find funny","Any of the above works perfectly"], ans: 3 },
+  { q: "How would you describe our friendship in one word?", opts: ["Unbreakable","Hilarious","Soul-deep","All of it"], ans: 3 },
+  { q: "What do we never have to explain to each other?", opts: ["Mood swings","Random 2am thoughts","Why we need the exact same thing we just said we didn't need","Everything — we just get it"], ans: 3 },
+  { q: "If our friendship was a movie genre, it'd be…", opts: ["Comedy","Heartwarming drama","Adventure","A beautiful mix of all three"], ans: 3 },
+  { q: "What's the most important ingredient in our friendship?", opts: ["Trust","Honesty","Humor","Trust + honesty + humor"], ans: 3 },
+  { q: "How long will this friendship last?", opts: ["A really long time","Decades","Until we're old and still embarrassing","Forever and then some"], ans: 3 },
+  { q: "What does this website make you feel?", opts: ["Happy tears","Pure joy","Loved and seen","All of the above, deeply"], ans: 3 }
+];
+
+const ENVELOPES = [
+  { icon: "💌", title: "To My Favorite Person", body: `<p>There are people you meet and people who change you. You are both. From the very beginning, something about you felt like <em>home</em> — safe, warm, entirely itself.</p><p>I want you to know: I don't take you for granted. Not for a single day. You are a constant source of light in my life and I hope, in some small way, I am in yours too.</p><p>Whatever you're carrying right now — you don't have to carry it alone. I'm here, always.</p>` },
+  { icon: "🌸", title: "For Your Hard Days", body: `<p>On the days when getting out of bed feels like climbing a mountain — I see you. On the days when you give more than you have and wonder if it's enough — it is. <em>You</em> are enough.</p><p>You have survived every single hard day so far. That's a 100% record I want you to remember when the next one comes.</p><p>And when it does? I'll be right here.</p>` },
+  { icon: "✨", title: "What I Admire About You", body: `<p>You face hard things with grace. You love people with your whole heart. You find humor in the dark and beauty in the mundane. You grow without losing yourself.</p><p>I admire you more than I say. You make me want to be more thoughtful, more present, more kind. Without even trying, you raise the bar for what it means to be a good person.</p>` },
+  { icon: "🎉", title: "Celebrating YOU", body: `<p>This one's simple: you deserve to be celebrated. Not just on birthdays, not just when you achieve something big — but today, as you are, simply for existing and being you.</p><p>You are worthy of every good thing coming your way. Say it with me: <em>I deserve joy. I deserve love. I deserve this.</em></p><p>Because you do. I promise.</p>` },
+  { icon: "🌙", title: "Our 2AM Conversations", body: `<p>The best conversations happen late at night, don't they? When guards are down and the world is quiet and we say the truest things we've been holding all day.</p><p>Thank you for being someone I can be fully honest with at 2am. Thank you for never making me feel like too much. Those late-night talks are some of my most treasured memories.</p>` },
+  { icon: "💪", title: "I Believe in You", body: `<p>Whatever dream you've been hesitating on — I believe in it. Whatever version of yourself you're working toward — I believe in her. Whatever step you're afraid to take — I'll be cheering from the sidelines and in your corner every step of the way.</p><p>You are more capable than you know. I've watched you overcome things that would have broken others. That's not nothing. That's everything.</p>` },
+  { icon: "🌟", title: "A Note of Pure Gratitude", body: `<p>Thank you for making me feel less alone in this world. Thank you for the inside jokes and the real talk and the patience you've shown me even when I didn't deserve it.</p><p>Thank you for choosing to stay — through the changes, the growth, the seasons. Friendships like ours don't happen by accident. They're built, intentionally, every single day. And I am so grateful we keep building ours.</p>` },
+  { icon: "🦋", title: "Look How Far We've Come", body: `<p>I look at who we were when we first met and who we are now, and I am in awe of the journey. We've both grown in ways that are hard to name but easy to feel.</p><p>We've been through different phases of ourselves and still found each other on the other side — a little wiser, a little softer, a little more sure of what matters. That's something beautiful. That's something rare.</p><p>Here's to every version of us, still to come.</p>` }
+];
+
+const JAR_MESSAGES = [
+  "You are, without question, one of the best people I know. ✨",
+  "On your worst days, you are still someone I would choose. Every single time.",
+  "Your kindness creates ripples you'll never fully see. Keep going.",
+  "Today I want to remind you: you are deeply, unconditionally loved.",
+  "You don't have to be perfect to be wonderful. And you are wonderful.",
+  "The world is genuinely better because you are in it. I mean that.",
+  "Every time you've made me laugh until I cried — thank you. Those moments are gold.",
+  "You are braver than you believe and stronger than you know.",
+  "I am so proud of who you are becoming. You are extraordinary.",
+  "Your presence in my life is one of the greatest gifts I've ever received.",
+  "On the days you feel invisible, I see you. I always see you.",
+  "You deserve rest. You deserve joy. You deserve every good thing.",
+  "Your heart is one of the most beautiful I've ever known. Protect it.",
+  "Remember that adventure we had when everything went wrong? Still the best day.",
+  "You made me a better person just by being yourself. That's rare.",
+  "Happiness looks good on you. I hope you feel it today.",
+  "You are my favorite kind of person: real, warm, and wonderfully strange.",
+  "I hope someday you see yourself the way I see you.",
+  "You are not too much. You are, in fact, exactly enough.",
+  "Today's compliment: your laughter is genuinely one of the best sounds in the world.",
+  "The way you love people is a superpower. Don't ever downplay it.",
+  "I would choose you as my person in every version of this life.",
+  "You have gotten through every hard day so far. This one too.",
+  "Thank you for existing at the exact same time as me on this planet.",
+  "You are the reason 'best friend' is my favorite phrase."
+];
+
+const GIFT_REVEALS = [
+  { icon: "🌈", title: "The Gift of Perspective", msg: "You taught me to look for beauty in small, ordinary things — a warm drink, golden afternoon light, a message that arrives at exactly the right time. I see the world differently because of you." },
+  { icon: "💎", title: "The Gift of Your Authenticity", msg: "In a world that rewards performance, you are refreshingly, unapologetically real. That is the rarest gift — and you give it freely to everyone around you." },
+  { icon: "🌻", title: "The Gift of Growth", msg: "Together we've helped each other become more of who we're meant to be. Not by pushing, but by creating the kind of safety where growth feels possible." },
+  { icon: "🎵", title: "The Gift of Joy", msg: "You have given me so many moments of pure, uncomplicated joy. The kind you can't manufacture — it just happens when the right people are together." },
+  { icon: "🕊️", title: "The Gift of Peace", msg: "Being with you feels easy in the best possible way. No pretense, no performance. Just two people who genuinely like each other, exactly as they are." }
+];
+
+// ═══════════════════════════════════════════════════════
+//  HEARTS
+// ═══════════════════════════════════════════════════════
+const HEART_EMOJIS = ['💕','💖','💗','🌸','✨','💫','🌷','🤍','💝','🌟'];
+function spawnHeart() {
+  const el = document.createElement('div');
+  el.className = 'floating-heart';
+  el.textContent = HEART_EMOJIS[Math.floor(Math.random() * HEART_EMOJIS.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  el.style.fontSize = (14 + Math.random() * 16) + 'px';
+  el.style.animationDuration = (6 + Math.random() * 8) + 's';
+  el.style.animationDelay = Math.random() * 2 + 's';
+  document.getElementById('hearts-container').appendChild(el);
+  setTimeout(() => el.remove(), 16000);
+}
+setInterval(spawnHeart, 1400);
+
+// ═══════════════════════════════════════════════════════
+//  MUSIC (oscillator-based ambient tone)
+// ═══════════════════════════════════════════════════════
+let audioCtx, musicPlaying = false, gainNode, oscNodes = [];
+function createMusic() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  gainNode = audioCtx.createGain();
+  gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+  gainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 2);
+  gainNode.connect(audioCtx.destination);
+  const freqs = [261.63, 329.63, 392, 523.25];
+  freqs.forEach((f, i) => {
+    const o = audioCtx.createOscillator();
+    const g2 = audioCtx.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f, audioCtx.currentTime);
+    g2.gain.setValueAtTime(0.25, audioCtx.currentTime);
+    o.connect(g2); g2.connect(gainNode);
+    o.start();
+    oscNodes.push(o);
+  });
+}
+function toggleMusic() {
+  const btn = document.getElementById('music-btn');
+  if (!audioCtx) { createMusic(); musicPlaying = true; btn.textContent = '🔊'; return; }
+  if (musicPlaying) {
+    gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1);
+    btn.textContent = '🎵'; musicPlaying = false;
+  } else {
+    gainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 1);
+    btn.textContent = '🔊'; musicPlaying = true;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+//  NAV SHOW ON SCROLL
+// ═══════════════════════════════════════════════════════
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if (window.scrollY > window.innerHeight * 0.6) nav.classList.add('visible');
+  else nav.classList.remove('visible');
+});
+
+// ═══════════════════════════════════════════════════════
+//  CARD FLIP
+// ═══════════════════════════════════════════════════════
+function flipCard(wrapper) {
+  wrapper.querySelector('.card-3d').classList.toggle('flipped');
+}
+
+// ═══════════════════════════════════════════════════════
+//  QUOTES
+// ═══════════════════════════════════════════════════════
+let quoteIdx = 0, quoteTimer;
+function renderQuote() {
+  const stage = document.getElementById('quote-stage');
+  stage.innerHTML = `<div class="quote-card active"><p class="quote-text">${QUOTES[quoteIdx]}</p><span class="quote-num">${quoteIdx+1} / ${QUOTES.length}</span></div>`;
+}
+function nextQuote() { quoteIdx = (quoteIdx + 1) % QUOTES.length; renderQuote(); }
+function prevQuote() { quoteIdx = (quoteIdx - 1 + QUOTES.length) % QUOTES.length; renderQuote(); }
+renderQuote();
+quoteTimer = setInterval(nextQuote, 6000);
+
+// ═══════════════════════════════════════════════════════
+//  TIMELINE
+// ═══════════════════════════════════════════════════════
+const tl = document.getElementById('timeline');
+TIMELINE_EVENTS.forEach(ev => {
+  tl.innerHTML += `<div class="tl-item">
+    <div class="tl-content">
+      <div class="tl-year">${ev.year}</div>
+      <h3>${ev.emoji} ${ev.title}</h3>
+      <p>${ev.text}</p>
+    </div>
+    <div class="tl-dot"></div>
+    <div class="tl-spacer"></div>
+  </div>`;
+});
+const tlObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.2 });
+document.querySelectorAll('.tl-item').forEach(el => tlObserver.observe(el));
+
+// ═══════════════════════════════════════════════════════
+//  GALLERY
+// ═══════════════════════════════════════════════════════
+const gallery = document.getElementById('gallery');
+GALLERY_ITEMS.forEach((item, i) => {
+  gallery.innerHTML += `<div class="gallery-item" onclick="openLightbox(${i})">
+    ${item.emoji}<div class="gallery-caption">${item.title}</div>
+  </div>`;
+});
+function openLightbox(i) {
+  const item = GALLERY_ITEMS[i];
+  document.getElementById('lightbox-emoji').textContent = item.emoji;
+  document.getElementById('lightbox-title').textContent = item.title;
+  document.getElementById('lightbox-text').textContent = item.text;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if(e.target === this) closeLightbox();
+});
+
+// ═══════════════════════════════════════════════════════
+//  FLIP CARDS (100 reasons)
+// ═══════════════════════════════════════════════════════
+const fg = document.getElementById('flip-grid');
+REASONS.forEach((r, i) => {
+  fg.innerHTML += `<div class="flip-card">
+    <div class="flip-inner">
+      <div class="flip-front"><span class="num">${i+1}</span><span class="label">Reason</span></div>
+      <div class="flip-back">Because ${r}</div>
+    </div>
+  </div>`;
+});
+
+// ═══════════════════════════════════════════════════════
+//  QUIZ
+// ═══════════════════════════════════════════════════════
+let qIdx = 0, qScore = 0;
+function renderQuiz() {
+  const q = QUIZ_DATA[qIdx];
+  document.getElementById('quiz-progress').textContent = `Question ${qIdx+1} of ${QUIZ_DATA.length}`;
+  document.getElementById('quiz-bar').style.width = ((qIdx+1)/QUIZ_DATA.length*100) + '%';
+  document.getElementById('quiz-q').textContent = q.q;
+  const opts = document.getElementById('quiz-opts');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => answerQuiz(i, btn, q.ans);
+    opts.appendChild(btn);
+  });
+}
+function answerQuiz(chosen, btn, correct) {
+  document.querySelectorAll('.quiz-opt').forEach(b => b.style.pointerEvents = 'none');
+  if (chosen === correct) { btn.classList.add('correct'); qScore++; }
+  else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt')[correct].classList.add('correct');
+  }
+  setTimeout(() => {
+    qIdx++;
+    if (qIdx < QUIZ_DATA.length) { renderQuiz(); }
+    else {
+      document.getElementById('quiz-active').style.display = 'none';
+      const res = document.getElementById('quiz-result');
+      res.style.display = 'block';
+      document.getElementById('quiz-score-text').textContent =
+        `You got ${qScore} out of ${QUIZ_DATA.length} — but honestly, the real answer to every question is just: we were made to be friends. 💕`;
+      launchConfetti();
+    }
+  }, 900);
+}
+renderQuiz();
+
+// ═══════════════════════════════════════════════════════
+//  ENVELOPES
+// ═══════════════════════════════════════════════════════
+const eg = document.getElementById('envelopes-grid');
+ENVELOPES.forEach((env, i) => {
+  eg.innerHTML += `<div class="envelope" onclick="openEnv(${i})">
+    <span class="env-icon">${env.icon}</span>
+    <h3>${env.title}</h3>
+  </div>`;
+});
+function openEnv(i) {
+  const env = ENVELOPES[i];
+  document.getElementById('env-title').textContent = env.title;
+  document.getElementById('env-body').innerHTML = env.body;
+  document.getElementById('env-modal').classList.add('open');
+  document.querySelectorAll('.envelope')[i].classList.add('opened');
+}
+function closeEnv() { document.getElementById('env-modal').classList.remove('open'); }
+document.getElementById('env-modal').addEventListener('click', function(e) {
+  if(e.target === this) closeEnv();
+});
+
+// ═══════════════════════════════════════════════════════
+//  JAR
+// ═══════════════════════════════════════════════════════
+let lastJarIdx = -1;
+function shakeJar() {
+  const msg = document.getElementById('jar-msg');
+  msg.style.opacity = 0;
+  let idx;
+  do { idx = Math.floor(Math.random() * JAR_MESSAGES.length); } while(idx === lastJarIdx);
+  lastJarIdx = idx;
+  setTimeout(() => { msg.textContent = JAR_MESSAGES[idx]; msg.style.opacity = 1; }, 400);
+}
+
+// ═══════════════════════════════════════════════════════
+//  GIFT BOX
+// ═══════════════════════════════════════════════════════
+let giftIdx = 0;
+function openGift() {
+  const btn = document.getElementById('gift-btn');
+  btn.classList.add('shaking');
+  setTimeout(() => btn.classList.remove('shaking'), 500);
+  const g = GIFT_REVEALS[giftIdx % GIFT_REVEALS.length];
+  giftIdx++;
+  document.getElementById('gift-icon').textContent = g.icon;
+  document.getElementById('gift-title').textContent = g.title;
+  document.getElementById('gift-msg').textContent = g.msg;
+  const rev = document.getElementById('gift-reveal');
+  rev.classList.remove('show');
+  void rev.offsetWidth;
+  rev.classList.add('show');
+}
+
+// ═══════════════════════════════════════════════════════
+//  COUNTDOWN
+// ═══════════════════════════════════════════════════════
+function calcCountdown() {
+  const now = new Date();
+  const diff = now - FRIENDSHIP_START;
+  const days = Math.floor(diff / 86400000);
+  const months = Math.floor(days / 30.44);
+  const years = Math.floor(days / 365.25);
+  document.getElementById('cnt-days').textContent = days.toLocaleString();
+  document.getElementById('cnt-months').textContent = months.toLocaleString();
+  document.getElementById('cnt-years').textContent = years;
+}
+calcCountdown();
+
+// ═══════════════════════════════════════════════════════
+//  LETTER DATE
+// ═══════════════════════════════════════════════════════
+const months_str = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const d = new Date();
+document.getElementById('letter-date').textContent =
+  `${months_str[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+
+// ═══════════════════════════════════════════════════════
+//  CONFETTI
+// ═══════════════════════════════════════════════════════
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.style.display = 'block';
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const pieces = Array.from({length: 180}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    r: 4 + Math.random() * 6,
+    color: ['#f9c6ce','#e8738a','#b59fd4','#f7c59f','#c9728a'][Math.floor(Math.random()*5)],
+    speed: 2 + Math.random() * 4,
+    spin: (Math.random() - 0.5) * 0.3,
+    angle: Math.random() * Math.PI * 2
+  }));
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.y += p.speed; p.x += Math.sin(p.angle) * 1.5; p.angle += p.spin;
+      if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.angle);
+      ctx.fillStyle = p.color; ctx.fillRect(-p.r, -p.r/2, p.r*2, p.r);
+      ctx.restore();
+    });
+    frame++;
+    if (frame < 240) requestAnimationFrame(draw);
+    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; }
+  }
+  draw();
+}
+
+function launchFireworks() {
+  for(let i = 0; i < 12; i++) {
+    setTimeout(() => {
+      const h = document.createElement('div');
+      h.style.cssText = `position:fixed;pointer-events:none;z-index:99999;
+        left:${Math.random()*90+5}%;top:${Math.random()*70+5}%;
+        font-size:${30+Math.random()*30}px;animation:fadeUp 1.2s ease forwards;`;
+      h.textContent = ['✨','💥','🌟','💖','🎆','💫','🌸','🎉'][Math.floor(Math.random()*8)];
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1300);
+    }, i * 150);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+//  EASTER EGG
+// ═══════════════════════════════════════════════════════
+const EGG_MSGS = [
+  "🐣 You found a hidden star! That's very you — always finding the magic in things.",
+  "🌟 Secret unlocked: you are somebody's favorite person.",
+  "💫 Easter egg! You were always going to find this. Seekers always do.",
+  "🎀 You found it! Now make a wish. I hope it comes true.",
+  "🦋 Hidden message: today is a good day to be you."
+];
+let eggCount = 0;
+function showEgg() {
+  const toast = document.getElementById('egg-toast');
+  toast.textContent = EGG_MSGS[eggCount % EGG_MSGS.length];
+  eggCount++;
+  toast.style.display = 'block';
+  clearTimeout(window._eggTimer);
+  window._eggTimer = setTimeout(() => toast.style.display='none', 4000);
+}
+
+// ═══════════════════════════════════════════════════════
+//  INTERSECTION ANIMATIONS
+// ═══════════════════════════════════════════════════════
+const sections = document.querySelectorAll('.section, .quote-stage, .flip-grid, .envelopes-grid, .gallery, .count-grid, .letter-paper, .quiz-box');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+sections.forEach(s => {
+  s.style.opacity = '0';
+  s.style.transform = 'translateY(30px)';
+  s.style.transition = 'opacity .7s ease, transform .7s ease';
+  observer.observe(s);
+});
+</script>
+</body>
+</html>
